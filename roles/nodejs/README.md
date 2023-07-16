@@ -18,7 +18,7 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
         - role: nodejs
           vars:
-            npm_global_directory: "/home/{{ ansible_user }}/.npm-global"
+            npm_global_directory: "{{ ansible_user_dir }}/.npm-global"
 
 License
 -------
