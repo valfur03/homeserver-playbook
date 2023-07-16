@@ -1,2 +1,5 @@
 - name: "Configure the homeserver (type: Raspberry Pi 4)"
   hosts: rpi4
+
+  roles:
+    - role: nodejs
