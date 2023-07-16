@@ -1,5 +1,15 @@
 [rpi4]
 pi.valfur.fr
+vagrant-rpi4
 
 [prod]
 pi.valfur.fr
+
+[dev]
+vagrant-rpi4 ansible_port=2200
+
+[dev:vars]
+ansible_host=127.0.0.1
+ansible_user=vagrant
+ansible_private_key_file=.vagrant/machines/default/virtualbox/private_key
+ansible_host_key_checking=no
