@@ -1,0 +1,31 @@
+# Clever solution found from:
+# https://serverfault.com/a/649355
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "../vars/{{ ansible_distribution }}.yml"
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default-packages.yml"
+
+- name: Install NodeJS
+  become: true
+  package:
+    name:
+      - "{{ nodejs_package }}"
+    update_cache: true
+    state: present
+
+- name: Create global NPM directory
+  file:
+    path: "{{ npm_global_directory }}"
+    state: directory
+    mode: 0755
+
+- name: Get NPM global directory
+  command: npm config get prefix
+  register: current_npm_global_directory
+  changed_when: false
+
+- name: Set NPM global directory
+  command: npm config set prefix "{{ npm_global_directory }}"
+  when: "current_npm_global_directory.stdout != npm_global_directory"

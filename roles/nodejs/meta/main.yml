@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Valentin Furmanek
+  description: Install NodeJS and make some basic configuration
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: RedHat
+    versions:
+    - all
+
+  galaxy_tags: [nodejs]
+
+dependencies: []
