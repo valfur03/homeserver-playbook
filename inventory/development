@@ -1,5 +1,5 @@
 [rpi4]
-vagrant-rpi4 ansible_port=2200
+vagrant-rpi4 ansible_port=2222
 
 [all:vars]
 ansible_host=127.0.0.1
