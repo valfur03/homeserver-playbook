@@ -1,2 +1,5 @@
+# Docker
+- src: geerlingguy.docker
+
 # Configure the OpenSSH server daemon
 - src: willshersystems.sshd

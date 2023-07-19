@@ -8,3 +8,8 @@
       become: true
       sshd:
         StreamLocalBindUnlink: true
+    - role: geerlingguy.docker
+      become: true
+      docker_install_compose_plugin: true
+      docker_users:
+        - "{{ ansible_user_id }}"
