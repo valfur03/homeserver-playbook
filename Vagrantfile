@@ -13,6 +13,8 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "fedora/38-cloud-base"
+  config.vm.disk :disk, name: "ValfurSSD", size: "2GB", file: "/Junk VMs/vagrant/ValfurSSD.vdi"
+  config.ssh.forward_agent = true
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

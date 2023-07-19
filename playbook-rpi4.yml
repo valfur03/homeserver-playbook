@@ -3,3 +3,4 @@
 
   roles:
     - role: nodejs
+    - role: fstab
