@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Valentin Furmanek
+  description: Install shell tools and apply my personal configuration
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Fedora
+    versions:
+    - all
+
+  galaxy_tags: [shell, environment]
+
+dependencies:
+  - dotfiles
+  - neovim
+  - tmux

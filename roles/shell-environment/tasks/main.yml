@@ -1,0 +1,43 @@
+# Clever solution found from:
+# https://serverfault.com/a/649355
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "roles/shell-environment/vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "roles/shell-environment/vars/{{ ansible_distribution }}.yml"
+    - "roles/shell-environment/vars/{{ ansible_os_family }}.yml"
+    - "roles/shell-environment/vars/default-packages.yml"
+
+- name: Install packages
+  become: true
+  package:
+    name:
+      - "{{ zsh_package }}"
+    update_cache: true
+    state: present
+
+- name: Change default user's shell
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: "{{ zsh_executable_path }}"
+
+- name: Set the device ID in the local zshrc file
+  block:
+    - name: Create the local zshrc file
+      file:
+        path: "{{ local_zshrc_file }}"
+        mode: '0755'
+        state: touch
+        modification_time: preserve
+        access_time: preserve
+
+    # See how this regex works:
+    # https://regex101.com/r/XjLXo5/2
+    - name: Add the device ID to the local zshrc file
+      lineinfile:
+        path: "{{ local_zshrc_file }}"
+        regexp: '\bexport\b[ \t]+{{ prompt_device_id_var }}=(?:(?:([''"])(?:(?!\1).(?:\\\1)?)*\1)?(?:\\ )?[^\s"'']?)*[\s]*$'
+        line: "export {{ prompt_device_id_var }}='{{ prompt_device_id }}'"
+  when:
+    - prompt_device_id is defined
+    - prompt_device_id_var is defined

@@ -2,7 +2,6 @@
   hosts: rpi4
 
   roles:
-    - role: nodejs
     - role: fstab
     - role: willshersystems.sshd
       become: true
@@ -13,3 +12,6 @@
       docker_install_compose_plugin: true
       docker_users:
         - "{{ ansible_user_id }}"
+    - role: shell-environment
+      prompt_device_id_var: "PROMPT_DEVICE_ID"
+      prompt_device_id: "pi"

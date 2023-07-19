@@ -1,0 +1,2 @@
+local_zshrc_file: "{{ ansible_user_dir }}/.zshlrc"
+zsh_executable_path: "/bin/zsh"
