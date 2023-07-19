@@ -4,3 +4,7 @@
   roles:
     - role: nodejs
     - role: fstab
+    - role: willshersystems.sshd
+      become: true
+      sshd:
+        StreamLocalBindUnlink: true

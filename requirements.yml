@@ -1,0 +1,2 @@
+# Configure the OpenSSH server daemon
+- src: willshersystems.sshd

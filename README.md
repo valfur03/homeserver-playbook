@@ -8,6 +8,12 @@ This repository contains a set of Ansible playbooks. I am using both singular an
 
 ## Usage
 
+First install roles:
+
+```sh
+ansible-galaxy install -r requirements.yml
+```
+
 This playbook requires a hard drive with two logical volumes named `ValfurSSD-data` and `ValfurSSD-docker--volumes`. You can check [Vagrant Disks](https://developer.hashicorp.com/vagrant/docs/disks). Here is my actual configuration:
 
 ```
