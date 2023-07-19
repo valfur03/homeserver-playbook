@@ -37,7 +37,7 @@ ansible-playbook -i inventory/development playbook-rpi4.yml
 ```
 
 > For development, you should disable strict host key checking, but you will soon encounter a bug.
-> Checkout [Troubleshooting section](#The-playbook-failse-on-a-task-that-uses-SSH-includes-SSH-Git-cloning).
+> Checkout [Troubleshooting section](#The-playbook-fails-on-a-task-that-uses-SSH-includes-SSH-Git-cloning).
 
 ## Troubleshooting
 
