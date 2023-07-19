@@ -35,3 +35,36 @@ To deploy to the development server (after having started the Vagrant box):
 ```sh
 ansible-playbook -i inventory/development playbook-rpi4.yml
 ```
+
+> For development, you should disable strict host key checking, but you will soon encounter a bug.
+> Checkout [Troubleshooting section](#The-playbook-failse-on-a-task-that-uses-SSH-includes-SSH-Git-cloning).
+
+## Troubleshooting
+
+### The playbook fails on a task that uses SSH (includes SSH Git cloning)
+
+This is a known bug, that seems to not be fixed yet: https://github.com/ansible/ansible/issues/9442.
+
+I will explain the problem. When the host key changes (e.g. you destroy and recreate the development Vagrant box), you will see that famous warning:
+
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+...
+```
+
+But that's not a big deal because you don't care (**not in production right??**) and you know what you are doing so you just disabled strict host key checking in with the environment variable `ANSIBLE_HOST_KEY_CHECKING=False`. So what is the problem?
+
+Well, even though you disabled strict host key checking, if the host key is invalid, SSH agent forwarding won't work. That means that your SSH keys won't be forwarded and you won't be able to connect to remote hosts (or SSH clone Git repositories).
+
+Now the workaround (I can't call that a solution nor a solution), run your playbook as follows:
+
+```sh
+ANSIBLE_SSH_ARGS='-o ForwardAgent=yes -o UserKnownHostsFile=/dev/null' ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook ...
+```
+
+I prefere to put these options in environment variable because I don't want to globally use them: in a real-world situation, you really want to keep these options off. But it forces me to repeat the `ForwardAgent` option (environment variables overwrite the ones set in `ansible.cfg`).

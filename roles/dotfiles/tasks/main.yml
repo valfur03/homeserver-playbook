@@ -1,0 +1,26 @@
+- name: Add Github host keys
+  known_hosts:
+    name: "{{ github_hostname }}"
+    key: "{{ item }}"
+    path: "{{ known_hosts_file_path }}"
+  with_items:
+    - "{{ github_host_keys.ed25519 }}"
+    - "{{ github_host_keys.ecdsa }}"
+    - "{{ github_host_keys.rsa }}"
+
+- name: Stat dotfiles directory
+  stat:
+    path: "{{ dotfiles_dir }}"
+  register: dotfiles
+
+- block:
+  - name: Download dotfiles installer
+    get_url:
+      url: "{{ dotfiles_installer_url }}"
+      dest: "{{ dotfiles_installer_path }}"
+
+  - name: Run dotfiles installer
+    become: false
+    shell:
+      cmd: sh "{{ dotfiles_installer_path }}" -f
+  when: dotfiles.stat.exists is false

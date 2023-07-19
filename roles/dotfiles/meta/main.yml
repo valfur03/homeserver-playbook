@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Valentin Furmanek
+  description: Run the dotfiles populator script
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Fedora
+    versions:
+    - all
+
+  galaxy_tags: [dotfiles, environment]
+
+dependencies:
+  - devel
+  - role: gantsign.oh-my-zsh
+    vars:
+      oh_my_zsh_write_zshrc: false
+      users:
+        - username: "{{ ansible_user_id }}"

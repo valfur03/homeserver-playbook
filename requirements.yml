@@ -1,3 +1,6 @@
+# Installing and configuring oh-my-zsh
+- src: gantsign.oh-my-zsh
+
 # Docker
 - src: geerlingguy.docker
 
