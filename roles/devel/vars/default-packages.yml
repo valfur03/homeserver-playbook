@@ -1,0 +1,8 @@
+clang_package: clang
+git_package: git
+gcc_package: gcc
+pinentry_package: pinentry
+pip_package: pip
+python_package: python3
+ruby_package: ruby
+rubygems_package: rubygems

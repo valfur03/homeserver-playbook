@@ -1,0 +1,23 @@
+# Clever solution found from:
+# https://serverfault.com/a/649355
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "roles/devel/vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "roles/devel/vars/{{ ansible_distribution }}.yml"
+    - "roles/devel/vars/{{ ansible_os_family }}.yml"
+    - "roles/devel/vars/default-packages.yml"
+
+- name: Install packages
+  become: true
+  package:
+    name:
+      - "{{ clang_package }}"
+      - "{{ gcc_package }}"
+      - "{{ git_package }}"
+      - "{{ pinentry_package }}"
+      - "{{ pip_package }}"
+      - "{{ python_package }}"
+      - "{{ ruby_package }}"
+      - "{{ rubygems_package }}"
+    update_cache: true
+    state: present
