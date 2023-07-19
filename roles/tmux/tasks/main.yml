@@ -1,0 +1,21 @@
+# Clever solution found from:
+# https://serverfault.com/a/649355
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "roles/tmux/vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "roles/tmux/vars/{{ ansible_distribution }}.yml"
+    - "roles/tmux/vars/{{ ansible_os_family }}.yml"
+    - "roles/tmux/vars/default-packages.yml"
+
+- name: Install Tmux
+  become: true
+  package:
+    name:
+      - "{{ tmux_package }}"
+    update_cache: true
+    state: present
+
+- name: Install TPM
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
