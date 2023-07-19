@@ -1,0 +1,4 @@
+fd_package: fd
+mercurial_package: mercurial
+neovim_package: neovim
+ripgrep_package: ripgrep

@@ -1,0 +1,28 @@
+# Clever solution found from:
+# https://serverfault.com/a/649355
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "roles/neovim/vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int}}.yml"
+    - "roles/neovim/vars/{{ ansible_distribution }}.yml"
+    - "roles/neovim/vars/{{ ansible_os_family }}.yml"
+    - "roles/neovim/vars/default-packages.yml"
+
+- name: Install Neovim
+  become: true
+  package:
+    name:
+      - "{{ fd_package }}"
+      - "{{ mercurial_package }}"
+      - "{{ neovim_package }}"
+      - "{{ ripgrep_package }}"
+    update_cache: true
+    state: present
+
+- name: Install NPM Neovim package
+  npm:
+    name: neovim
+    global: true
+
+- name: Install PIP Neovim package
+  pip:
+    name: pynvim
