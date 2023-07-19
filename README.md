@@ -19,5 +19,5 @@ ansible-playbook -K -i inventory/production playbook-rpi4.yml
 To deploy to the development server (after having started the Vagrant box):
 
 ```sh
-ansible-playbook -K -i inventory/development playbook-rpi4.yml
+ansible-playbook -i inventory/development playbook-rpi4.yml
 ```
