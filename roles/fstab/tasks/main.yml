@@ -29,3 +29,5 @@
       path: /data
     - name: docker_volumes
       path: /var/lib/docker/volumes
+    - name: backup
+      path: /backup/local
