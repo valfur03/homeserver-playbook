@@ -27,5 +27,5 @@
   with_items:
     - name: data
       path: /data
-    - name: docker-volumes
+    - name: docker_volumes
       path: /var/lib/docker/volumes
