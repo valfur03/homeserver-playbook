@@ -30,6 +30,7 @@
       become: true
       package:
         name:
+          - "{{ borgmatic_package }}"
           - "{{ lm_sensors_package }}"
         update_cache: true
         state: present
