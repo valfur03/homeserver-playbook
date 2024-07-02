@@ -3,6 +3,7 @@
 
   roles:
     - role: fstab
+      volume_group: ValfurSSD
     - role: willshersystems.sshd
       become: true
       sshd:

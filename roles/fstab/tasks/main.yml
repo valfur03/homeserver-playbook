@@ -15,19 +15,23 @@
     update_cache: true
     state: present
 
-- name: Add logical volumes to fstab
-  become: true
-  mount:
-    src: "/dev/mapper/ValfurSSD-{{ item.name }}"
-    path: "{{ item.path }}"
-    fstype: ext4
-    opts: defaults
-    passno: 2
-    state: present
-  with_items:
-    - name: data
-      path: /data
-    - name: docker_volumes
-      path: /var/lib/docker/volumes
-    - name: backup
-      path: /backup/local
+- name: Configure logical volumes
+  block:
+    - name: Ensure logical volumes are present in the fstab
+      become: true
+      mount:
+        src: "/dev/mapper/{{ volume_group }}-{{ item.name }}"
+        path: "{{ item.path }}"
+        fstype: ext4
+        opts: defaults
+        passno: 2
+        state: present
+      with_items:
+        - name: data
+          path: /data
+        - name: docker_volumes
+          path: /var/lib/docker/volumes
+        - name: backup
+          path: /backup/local
+  when:
+    - volume_group is defined
