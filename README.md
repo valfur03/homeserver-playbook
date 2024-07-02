@@ -30,6 +30,9 @@ To deploy to the real production server:
 ansible-playbook -K -i inventory/production playbook-rpi4.yml
 ```
 
+> [!INFO]
+> `-u` option can be used to change the SSH username (e.g. `-u my_user`)
+
 To deploy to the development server (after having started the Vagrant box):
 
 ```sh
