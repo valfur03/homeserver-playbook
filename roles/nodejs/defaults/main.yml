@@ -1,1 +1,1 @@
-npm_global_directory: "{{ ansible_user_dir }}/.npm-global"
+npm_global_directory: "{{ ansible_facts.user_dir }}/.npm-global"

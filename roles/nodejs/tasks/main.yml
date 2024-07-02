@@ -1,3 +1,10 @@
+- name: Ensure ansible_facts used by role
+  ansible.builtin.setup:
+    gather_subset:
+      - "!all"
+      - "!min"
+      - user_dir
+
 # Clever solution found from:
 # https://serverfault.com/a/649355
 - include_vars: "{{ item }}"
